@@ -11,6 +11,7 @@
         margin: 0;
         padding: 0;
         -webkit-tap-highlight-color: transparent;
+        user-select: none;
     }
 
     body {
@@ -19,107 +20,59 @@
         font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         display: flex;
         justify-content: center;
-        /* Отключаем скролл body, скроллиться будет .app */
         overflow: hidden; 
     }
 
     .app {
         width: 100%;
-        max-width: 430px;
+        max-width: 393px; /* Идеальная ширина под iPhone 15 Pro */
         height: 100vh;
-        height: 100dvh; /* Для корректной высоты на iOS */
+        height: 100dvh;
         background-color: #000000;
         position: relative;
         overflow-y: auto;
         overflow-x: hidden;
-        /* Отступ снизу, чтобы контент не перекрывался меню */
-        padding-bottom: calc(85px + env(safe-area-inset-bottom));
+        padding-bottom: calc(80px + env(safe-area-inset-bottom));
     }
 
-    /* Скрываем скроллбар для красоты */
     .app::-webkit-scrollbar { display: none; }
     .app { -ms-overflow-style: none; scrollbar-width: none; }
 
     /* --- УПРАВЛЕНИЕ СТРАНИЦАМИ --- */
     .page {
         display: none;
-        animation: fadeIn 0.2s ease-in-out;
+        animation: fadeIn 0.15s ease-out;
     }
     .page.active {
         display: block;
     }
     @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(5px); }
-        to { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
 
     /* =========================================
        СТРАНИЦА 1: ГЛАВНАЯ
        ========================================= */
     
-    .main-header {
-        padding: max(16px, env(safe-area-inset-top)) 16px 12px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .profile-info {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-    }
-
-    .avatar {
-        width: 34px;
-        height: 34px;
-        background-color: #333;
-        border-radius: 50%;
-        background-image: url('https://i.pravatar.cc/100?img=11');
-        background-size: cover;
-    }
-
-    .profile-name {
-        font-size: 20px;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 2px;
-    }
-
-    .btn-bonus {
-        background: linear-gradient(90deg, #8A2BE2, #6A0DAD);
-        color: #fff;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 16px;
-        font-size: 13px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        cursor: pointer;
-    }
-
     .search-container {
-        padding: 8px 16px;
+        padding: max(16px, env(safe-area-inset-top)) 16px 8px;
     }
 
     .search-bar {
-        background-color: #1b1f26;
+        background-color: #1C1C1E;
         border-radius: 12px;
-        padding: 10px 14px;
+        padding: 12px 14px;
         display: flex;
         align-items: center;
-        gap: 10px;
-        color: #6b7280;
-        font-size: 16px;
-        cursor: text;
+        gap: 8px;
+        color: #8E8E93;
+        font-size: 17px;
     }
 
-    .search-bar svg { width: 18px; height: 18px; fill: #6b7280; }
+    .search-bar svg { width: 20px; height: 20px; fill: #8E8E93; }
 
+    /* Баннеры */
     .stories-scroll {
         display: flex;
         overflow-x: auto;
@@ -130,35 +83,48 @@
     .stories-scroll::-webkit-scrollbar { display: none; }
 
     .story-card {
-        min-width: 120px;
-        height: 160px;
-        border-radius: 18px;
-        padding: 12px;
+        min-width: 130px;
+        height: 180px;
+        border-radius: 20px;
+        padding: 14px;
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        justify-content: space-between;
         flex-shrink: 0;
         color: #fff;
         font-weight: 600;
-        font-size: 13px;
+        font-size: 14px;
         line-height: 1.2;
+        overflow: hidden;
     }
 
-    .story-card::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 18px;
-        border: 2px solid rgba(255,255,255,0.15);
-        pointer-events: none;
+    /* Градиенты для баннеров, имитирующие картинки со скрина */
+    .story-1 { 
+        background: linear-gradient(135deg, #4A4AFF 0%, #2929CC 100%); 
+    }
+    .story-2 { 
+        background: linear-gradient(135deg, #FF5E3A 0%, #FF9500 100%); 
+    }
+    .story-3 { 
+        background: linear-gradient(135deg, #FFCC00 0%, #FF8C00 100%); 
+        color: #000;
     }
 
-    .story-1 { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); }
-    .story-2 { background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); }
-    .story-3 { background: linear-gradient(135deg, #e65c00 0%, #F9D423 100%); }
-    .story-4 { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+    .story-icon {
+        font-size: 40px;
+        margin-bottom: auto;
+        height: 60px;
+        display: flex;
+        align-items: flex-start;
+    }
 
+    .story-title {
+        margin-top: auto;
+        font-weight: 700;
+    }
+
+    /* Карточки статистики */
     .main-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -167,113 +133,116 @@
     }
 
     .widget-card {
-        background-color: #1b1f26;
-        border-radius: 20px;
-        padding: 16px;
+        background-color: #1C1C1E;
+        border-radius: 22px;
+        padding: 18px 16px;
         display: flex;
         flex-direction: column;
-        min-height: 160px;
+        min-height: 165px;
         position: relative;
-        cursor: pointer;
     }
 
-    .widget-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
-    .widget-card p { color: #8b929c; font-size: 13px; margin-bottom: 2px; }
-    .widget-amount { font-size: 16px; font-weight: 600; }
+    .widget-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; line-height: 1.2; }
+    .widget-card p { color: #8E8E93; font-size: 15px; margin-bottom: 2px; }
+    .widget-amount { font-size: 17px; font-weight: 600; margin-top: 2px; }
 
     .multi-progress {
-        height: 6px;
-        background-color: #2b313a;
+        height: 8px;
+        background-color: #3A3A3C;
         border-radius: 10px;
         margin-top: auto;
         display: flex;
         overflow: hidden;
     }
     .multi-progress div { height: 100%; }
-    .multi-progress .p1 { width: 40%; background: #29d4ff; }
-    .multi-progress .p2 { width: 20%; background: #ff9500; }
-    .multi-progress .p3 { width: 15%; background: #5856d6; }
-    .multi-progress .p4 { width: 25%; background: #ffcc00; }
+    .multi-progress .p1 { width: 40%; background: #32ADE6; }
+    .multi-progress .p2 { width: 20%; background: #FF9500; }
+    .multi-progress .p3 { width: 15%; background: #5856D6; }
+    .multi-progress .p4 { width: 25%; background: #FFCC00; }
 
     .badge-red {
         position: absolute;
-        top: 14px; right: 14px;
-        background-color: #ff3b30;
+        top: 16px; right: 16px;
+        background-color: #FF3B30;
         color: #fff;
-        font-size: 11px; font-weight: 700;
-        width: 20px; height: 20px;
+        font-size: 12px; font-weight: 600;
+        width: 22px; height: 22px;
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
     }
 
     .icons-row { display: flex; gap: 8px; margin-top: auto; }
     .icon-box {
-        width: 32px; height: 32px;
+        width: 36px; height: 36px;
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        font-weight: 800; font-size: 12px;
+        font-weight: 700; font-size: 13px;
     }
-    .icon-mvideo { background-color: #e60000; color: #fff; }
-    .icon-pyat { background-color: #008c44; color: #fff; }
-    .icon-66 { background-color: #0066cc; color: #fff; }
+    .icon-mvideo { background-color: #E60000; color: #fff; }
+    .icon-pyat { background-color: #008C44; color: #fff; }
+    .icon-66 { background-color: #0066CC; color: #fff; }
 
+    /* Быстрые действия */
     .quick-actions {
         display: flex;
         justify-content: space-between;
-        padding: 12px 16px 20px;
+        padding: 16px;
         text-align: center;
     }
 
     .action-btn-q {
         display: flex; flex-direction: column; align-items: center; gap: 8px;
-        background: none; border: none; color: #fff; font-size: 11px; cursor: pointer;
+        background: none; border: none; color: #fff; font-size: 12px; cursor: pointer;
         width: 25%;
+        font-weight: 500;
     }
 
     .action-icon-bg {
-        width: 48px; height: 48px;
-        background-color: #1b1f26;
-        border-radius: 14px;
+        width: 52px; height: 52px;
+        background-color: #1C1C1E;
+        border-radius: 16px;
         display: flex; align-items: center; justify-content: center;
     }
-    .action-icon-bg svg { width: 22px; height: 22px; fill: #4c8eff; }
+    .action-icon-bg svg { width: 24px; height: 24px; fill: #4A85F6; }
 
+    /* Карта Black */
     .black-card {
-        background-color: #151515;
-        border: 1px solid #2b313a;
-        border-radius: 20px;
+        background-color: #121212;
+        border: 1px solid #2C2C2E;
+        border-radius: 22px;
         margin: 0 16px 20px;
-        padding: 16px;
+        padding: 18px 16px;
         position: relative;
     }
 
-    .black-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .black-card-header { display: flex; align-items: center; gap: 12px; }
     .ruble-icon {
-        width: 36px; height: 36px;
-        background-color: #4c8eff;
+        width: 44px; height: 44px;
+        background-color: #4A85F6;
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        font-size: 18px; font-weight: bold;
+        font-size: 22px; font-weight: 600; color: #fff;
     }
-    .card-balance { font-size: 18px; font-weight: 700; }
-    .card-name { color: #8b929c; font-size: 13px; }
+    .card-balance { font-size: 19px; font-weight: 600; }
+    .card-name { color: #8E8E93; font-size: 15px; margin-top: 2px; }
 
     .card-cashback {
-        position: absolute; top: 16px; right: 16px;
-        background-color: #2b313a;
-        padding: 4px 8px;
-        border-radius: 10px;
-        font-size: 11px; font-weight: 600;
+        position: absolute; top: 18px; right: 16px;
+        background-color: #2C2C2E;
+        padding: 6px 10px;
+        border-radius: 12px;
+        font-size: 13px; font-weight: 500;
         display: flex; align-items: center; gap: 4px;
     }
 
     .card-number {
         background-color: #000;
-        border: 1px solid #2b313a;
-        border-radius: 6px;
-        padding: 6px 10px;
-        font-size: 12px; font-weight: 600; letter-spacing: 1px;
+        border: 1px solid #2C2C2E;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
         display: inline-block;
+        margin-top: 16px;
     }
 
     /* =========================================
@@ -288,7 +257,7 @@
 
     .back-btn {
         background: none; border: none; color: #fff;
-        cursor: pointer; padding: 5px; display: flex; align-items: center;
+        cursor: pointer; padding: 4px 4px 4px 0; display: flex; align-items: center;
     }
 
     .account-section {
@@ -297,7 +266,7 @@
 
     .account-name {
         font-size: 22px;
-        font-weight: 700;
+        font-weight: 600;
         display: flex;
         align-items: center;
         gap: 8px;
@@ -305,90 +274,88 @@
     }
 
     .edit-btn {
-        background-color: #2b313a;
+        background-color: #2C2C2E;
         border: none; border-radius: 50%;
-        width: 26px; height: 26px;
+        width: 24px; height: 24px;
         display: flex; align-items: center; justify-content: center;
         cursor: pointer;
     }
-
-    .edit-btn svg { width: 12px; height: 12px; fill: #a0a5ad; }
+    .edit-btn svg { width: 12px; height: 12px; fill: #8E8E93; }
 
     .balance {
-        font-size: 36px; /* Уменьшено под iPhone 15 Pro */
-        font-weight: 800;
-        letter-spacing: -1px;
+        font-size: 42px; 
+        font-weight: 700;
+        letter-spacing: -0.5px;
         margin-top: 10px;
         white-space: nowrap;
     }
 
     .rate {
-        color: #8b929c;
+        color: #8E8E93;
         font-size: 16px;
-        margin-top: 6px;
-        font-weight: 500;
+        margin-top: 4px;
+        font-weight: 400;
     }
 
     .action-buttons {
-        margin: 20px;
-        background-color: #1b1f26;
+        margin: 24px 16px;
+        background-color: #1C1C1E;
         border-radius: 24px;
         display: flex;
-        padding: 16px 8px;
+        padding: 20px 8px;
     }
 
     .action-btn {
         flex: 1;
         background: none; border: none;
-        display: flex; flex-direction: column; align-items: center; gap: 10px;
-        cursor: pointer; color: #4c8eff; font-size: 14px; font-weight: 600;
+        display: flex; flex-direction: column; align-items: center; gap: 12px;
+        cursor: pointer; color: #4A85F6; font-size: 15px; font-weight: 500;
         line-height: 1.3; text-align: center;
     }
 
     .icon-circle {
-        width: 46px; height: 46px;
-        background-color: #4c8eff;
+        width: 52px; height: 52px;
+        background-color: #4A85F6;
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
     }
-    .icon-circle svg { width: 22px; height: 22px; fill: #0f1217; }
+    .icon-circle svg { width: 24px; height: 24px; fill: #fff; }
 
     .cards-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
-        padding: 0 20px;
+        padding: 0 16px;
     }
 
     .info-card {
-        background-color: #1b1f26;
+        background-color: #1C1C1E;
         border-radius: 22px;
-        padding: 18px;
+        padding: 18px 16px;
         display: flex; flex-direction: column;
-        min-height: 175px;
-        cursor: pointer;
+        min-height: 180px;
     }
 
     .info-card h2 {
         font-size: 17px;
-        font-weight: 700;
+        font-weight: 600;
         line-height: 1.3;
         margin-bottom: 12px;
     }
 
     .info-card p {
-        color: #8b929c;
-        font-size: 14px;
+        color: #8E8E93;
+        font-size: 15px;
         line-height: 1.3;
     }
 
     .card-amount {
-        font-size: 16px; font-weight: 700; margin-top: 4px;
+        font-size: 17px; font-weight: 600; margin-top: 4px;
     }
 
     .progress-bar {
         height: 6px;
-        background-color: #2b313a;
+        background-color: #3A3A3C;
         border-radius: 10px;
         margin-top: auto;
         overflow: hidden; width: 100%;
@@ -396,18 +363,18 @@
 
     .progress-fill {
         height: 100%;
-        background: linear-gradient(90deg, #29d4ff 0%, #8df5c4 100%);
+        background: linear-gradient(90deg, #32ADE6 0%, #A2F5C3 100%);
         border-radius: 10px;
         width: 70%;
     }
 
-    .date-text { font-size: 16px; font-weight: 700; color: #fff; margin-top: 2px; }
+    .date-text { font-size: 17px; font-weight: 600; color: #fff; margin-top: 4px; }
 
     .pill {
-        background-color: #2b313a;
-        color: #a0a5ad;
-        padding: 6px 12px; border-radius: 16px;
-        font-size: 14px; font-weight: 600;
+        background-color: #2C2C2E;
+        color: #8E8E93;
+        padding: 8px 12px; border-radius: 16px;
+        font-size: 15px; font-weight: 500;
         display: inline-block; margin-top: auto; align-self: flex-start;
     }
 
@@ -418,69 +385,69 @@
         position: fixed;
         bottom: 0;
         width: 100%;
-        max-width: 430px;
-        background-color: #161a20;
+        max-width: 393px;
+        background-color: #0A0A0A;
         display: flex;
         justify-content: space-between;
-        padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
-        border-top: 1px solid #1b1f26;
+        padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
+        border-top: 1px solid #1C1C1E;
         z-index: 10;
     }
 
     .nav-item {
         flex: 1;
         background: none; border: none;
-        color: #6b7280;
+        color: #8E8E93;
         display: flex; flex-direction: column; align-items: center; gap: 4px;
         font-size: 10px; font-weight: 500; cursor: pointer; position: relative;
         padding: 4px 0;
     }
 
-    .nav-item svg { width: 24px; height: 24px; fill: #6b7280; }
-    .nav-item.active { color: #4c8eff; }
-    .nav-item.active svg { fill: #4c8eff; }
+    .nav-item svg { width: 26px; height: 26px; fill: #8E8E93; }
+    .nav-item.active { color: #4A85F6; }
+    .nav-item.active svg { fill: #4A85F6; }
 
     .badge {
         position: absolute;
-        top: 0; right: 20%;
-        background-color: #ff3b30;
-        color: #fff; font-size: 9px; font-weight: bold;
-        min-width: 16px; height: 16px; border-radius: 8px;
+        top: 0; right: 15%;
+        background-color: #FF3B30;
+        color: #fff; font-size: 10px; font-weight: 600;
+        min-width: 18px; height: 18px; border-radius: 9px;
         display: flex; align-items: center; justify-content: center;
-        padding: 0 4px; border: 2px solid #161a20;
+        padding: 0 4px; border: 2px solid #0A0A0A;
     }
 
     /* --- МОДАЛЬНОЕ ОКНО И ТОСТ --- */
     .modal {
         display: none; position: fixed; inset: 0;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.8);
         align-items: center; justify-content: center;
-        padding: 20px; z-index: 100; backdrop-filter: blur(5px);
+        padding: 20px; z-index: 100; backdrop-filter: blur(10px);
     }
     .modal.open { display: flex; }
 
     .modal-box {
-        background-color: #1b1f26; border-radius: 24px; padding: 24px;
+        background-color: #1C1C1E; border-radius: 24px; padding: 24px;
         width: 100%; max-width: 340px;
     }
-    .modal-box h2 { font-size: 20px; margin-bottom: 16px; }
+    .modal-box h2 { font-size: 20px; margin-bottom: 16px; font-weight: 600;}
     .modal-box input {
-        width: 100%; padding: 14px; border-radius: 12px; border: none;
-        background-color: #0f1217; color: #fff; font-size: 18px;
+        width: 100%; padding: 16px; border-radius: 12px; border: none;
+        background-color: #000000; color: #fff; font-size: 18px;
         margin-bottom: 16px; outline: none;
     }
     .modal-box button {
-        width: 100%; border: none; padding: 14px; border-radius: 12px;
-        background-color: #4c8eff; color: #fff; font-size: 16px; font-weight: 600;
+        width: 100%; border: none; padding: 16px; border-radius: 12px;
+        background-color: #4A85F6; color: #fff; font-size: 16px; font-weight: 600;
         margin-top: 8px; cursor: pointer;
     }
-    .modal-box .secondary { background-color: #2b313a; color: #fff; }
+    .modal-box .secondary { background-color: #2C2C2E; color: #fff; }
 
     #toast {
         position: fixed; bottom: 90px; left: 50%;
         transform: translateX(-50%) translateY(20px);
-        background-color: #2b313a; color: #fff; padding: 12px 20px;
-        border-radius: 20px; font-size: 14px;
+        background-color: #2C2C2E; color: #fff; padding: 12px 20px;
+        border-radius: 20px; font-size: 14px; font-weight: 500;
         opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 200;
         white-space: nowrap;
     }
@@ -495,17 +462,7 @@
          СТРАНИЦА 1: ГЛАВНАЯ
          ========================================= -->
     <div id="page-main" class="page active">
-        <div class="main-header">
-            <div class="profile-info" onclick="showToast('Профиль')">
-                <div class="avatar"></div>
-                <div class="profile-name">Илья <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-            </div>
-            <button class="btn-bonus" onclick="showToast('Бонус за друга')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/></svg>
-                Бонус
-            </button>
-        </div>
-
+        
         <div class="search-container">
             <div class="search-bar">
                 <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
@@ -515,20 +472,16 @@
 
         <div class="stories-scroll">
             <div class="story-card story-1">
-                <div style="font-size: 32px; margin-bottom: auto;">🔑</div>
-                Хватит<br>на всё<br>за 290 ₽
+                <div class="story-icon">🔑</div>
+                <div class="story-title">Хватит<br>на всё<br>за 290 ₽</div>
             </div>
             <div class="story-card story-2">
-                <div style="font-size: 32px; margin-bottom: auto; text-align: center;">👑</div>
-                Узнать<br>кэшбэк дня
+                <div class="story-icon">👑</div>
+                <div class="story-title">Узнать<br>кэшбэк дня</div>
             </div>
             <div class="story-card story-3">
-                <div style="font-size: 32px; margin-bottom: auto; text-align: center; color: #000; font-weight:900;">T</div>
-                Сделайте<br>Т-Банк<br>основным
-            </div>
-            <div class="story-card story-4">
-                <div style="font-size: 32px; margin-bottom: auto;">👟</div>
-                Спортивные<br>товары<br>в Шопинге
+                <div class="story-icon" style="font-weight: 900; font-size: 45px; color: #000; font-family: serif;">T</div>
+                <div class="story-title">Сделайте<br>Т-Банк<br>основным</div>
             </div>
         </div>
 
@@ -556,7 +509,7 @@
         <div class="quick-actions">
             <button class="action-btn-q" onclick="showToast('Перевести')">
                 <div class="action-icon-bg">
-                    <svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" transform="rotate(90 12 12)"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" transform="rotate(90 12 12)"/></svg>
                 </div>
                 Перевести
             </button>
@@ -566,7 +519,7 @@
                 </div>
                 Пополнить
             </button>
-            <button class="action-btn-q" onclick="showToast('QR-код')">
+            <button class="action-btn-q" onclick="showToast('Сканировать')">
                 <div class="action-icon-bg">
                     <svg viewBox="0 0 24 24"><path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm10-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm10-2v2h2v-2h-2zm0 4v4h2v-4h-2zm4-4v2h2v-2h-2zm0 4v4h2v-4h-2z"/></svg>
                 </div>
@@ -599,7 +552,7 @@
     <div id="page-savings" class="page">
         <div class="savings-header">
             <button class="back-btn" onclick="switchPage('page-main')">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
         </div>
 
@@ -650,29 +603,33 @@
          НИЖНЕЕ МЕНЮ (NAV)
          ========================================= -->
     <nav class="bottom-nav">
+        <!-- Главная -->
         <button class="nav-item active" onclick="switchPage('page-main', this)">
             <div class="badge">1</div>
             <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             Главная
         </button>
         
+        <!-- Платежи -->
         <button class="nav-item" onclick="showToast('Раздел в разработке'); return false;">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
             Платежи
         </button>
 
-        <!-- Заменили "Город" на "Накопления" -->
+        <!-- Накопления -->
         <button class="nav-item" onclick="switchPage('page-savings', this)">
             <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
             Накопления
         </button>
 
+        <!-- Чат -->
         <button class="nav-item" onclick="showToast('Раздел в разработке'); return false;">
             <div class="badge">3</div>
             <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
             Чат
         </button>
 
+        <!-- Витрина -->
         <button class="nav-item" onclick="showToast('Раздел в разработке'); return false;">
             <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
             Витрина
@@ -704,37 +661,31 @@
         }) + " ₽";
     }
 
-    // Переключение между страницами (Главная / Накопления)
+    // Переключение между страницами
     function switchPage(pageId, navElement) {
-        // Скрываем все страницы
         document.querySelectorAll('.page').forEach(page => {
             page.classList.remove('active');
         });
         
-        // Показываем нужную
         document.getElementById(pageId).classList.add('active');
-        
-        // Скролл наверх при переключении
         document.querySelector('.app').scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Обновляем активный пункт меню, если передан элемент
         if (navElement) {
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
             navElement.classList.add('active');
         } else {
-            // Если переключились через кнопку "Назад" на странице Накоплений
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             if (pageId === 'page-main') {
-                document.querySelector('.nav-item').classList.add('active'); // Первая кнопка "Главная"
+                document.querySelectorAll('.nav-item')[0].classList.add('active');
             } else if (pageId === 'page-savings') {
-                document.querySelectorAll('.nav-item')[2].classList.add('active'); // Третья кнопка "Накопления"
+                document.querySelectorAll('.nav-item')[2].classList.add('active');
             }
         }
     }
 
-    // Открытие модалки
+    // Модальное окно
     function openAction(type) {
         mode = type;
         document.getElementById("modal-title").textContent = type;
@@ -742,12 +693,10 @@
         document.getElementById("modal").classList.add("open");
     }
 
-    // Закрытие модалки
     function closeModal() {
         document.getElementById("modal").classList.remove("open");
     }
 
-    // Применение суммы
     function apply() {
         let n = Number(document.getElementById("value").value);
         if (!n || n <= 0) {
@@ -766,17 +715,16 @@
         showToast("Баланс обновлён");
     }
 
-    // Переименование счета
+    // Переименование
     function editName() {
         let n = prompt("Введите новое название счёта:", "Пенсия");
         if (n && n.trim() !== "") {
             let accountNameDiv = document.querySelector(".account-name");
-            // Меняем только текст, оставляя кнопку редактирования
             accountNameDiv.childNodes[0].nodeValue = n + " ";
         }
     }
 
-    // Всплывающее уведомление
+    // Уведомление
     function showToast(msg) {
         let t = document.getElementById("toast");
         t.textContent = msg;
