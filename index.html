@@ -25,14 +25,14 @@
 
     .app {
         width: 100%;
-        max-width: 393px; /* Идеальная ширина под iPhone 15 Pro */
+        max-width: 393px; /* Ширина iPhone 15 Pro */
         height: 100vh;
         height: 100dvh;
         background-color: #000000;
         position: relative;
         overflow-y: auto;
         overflow-x: hidden;
-        padding-bottom: calc(80px + env(safe-area-inset-bottom));
+        padding-bottom: calc(85px + env(safe-area-inset-bottom));
     }
 
     .app::-webkit-scrollbar { display: none; }
@@ -56,12 +56,12 @@
        ========================================= */
     
     .search-container {
-        padding: max(16px, env(safe-area-inset-top)) 16px 8px;
+        padding: max(16px, env(safe-area-inset-top)) 16px 12px;
     }
 
     .search-bar {
         background-color: #1C1C1E;
-        border-radius: 12px;
+        border-radius: 14px;
         padding: 12px 14px;
         display: flex;
         align-items: center;
@@ -72,64 +72,93 @@
 
     .search-bar svg { width: 20px; height: 20px; fill: #8E8E93; }
 
-    /* Баннеры */
+    /* --- БАННЕРЫ С КАРТИНКАМИ (STORIES) --- */
     .stories-scroll {
         display: flex;
         overflow-x: auto;
-        gap: 10px;
-        padding: 12px 16px;
+        gap: 12px;
+        padding: 0 16px 16px;
         scrollbar-width: none;
     }
     .stories-scroll::-webkit-scrollbar { display: none; }
 
     .story-card {
-        min-width: 130px;
-        height: 180px;
-        border-radius: 20px;
-        padding: 14px;
+        min-width: 140px;
+        height: 200px;
+        border-radius: 22px;
+        padding: 16px;
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-end;
         flex-shrink: 0;
-        color: #fff;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 1.2;
         overflow: hidden;
     }
 
-    /* Градиенты для баннеров, имитирующие картинки со скрина */
-    .story-1 { 
-        background: linear-gradient(135deg, #4A4AFF 0%, #2929CC 100%); 
-    }
-    .story-2 { 
-        background: linear-gradient(135deg, #FF5E3A 0%, #FF9500 100%); 
-    }
-    .story-3 { 
-        background: linear-gradient(135deg, #FFCC00 0%, #FF8C00 100%); 
-        color: #000;
-    }
+    /* Градиенты фонов */
+    .story-1 { background: linear-gradient(180deg, #5E35B1 0%, #311B92 100%); }
+    .story-2 { background: linear-gradient(180deg, #FF5722 0%, #E64A19 100%); }
+    .story-3 { background: linear-gradient(180deg, #FFCA28 0%, #F57C00 100%); }
+    .story-4 { background: linear-gradient(180deg, #2E7D32 0%, #1B5E20 100%); }
 
-    .story-icon {
-        font-size: 40px;
-        margin-bottom: auto;
-        height: 60px;
-        display: flex;
-        align-items: flex-start;
+    /* Объемные картинки на фоне */
+    .story-img {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 80px;
+        height: 80px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        filter: drop-shadow(0 8px 12px rgba(0,0,0,0.4));
+        z-index: 1;
     }
 
     .story-title {
-        margin-top: auto;
+        position: relative;
+        z-index: 2;
         font-weight: 700;
+        font-size: 15px;
+        line-height: 1.25;
+        color: #fff;
     }
 
-    /* Карточки статистики */
+    .story-3 .story-title {
+        color: #000;
+    }
+
+    /* Логотип Т (сделан через CSS для идеальной четкости) */
+    .t-logo-css {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 70px;
+        height: 70px;
+        background-color: #FFDD2D;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(-5deg);
+        box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    .t-logo-css span {
+        font-size: 46px;
+        font-weight: 900;
+        color: #000;
+        font-family: -apple-system, sans-serif;
+        line-height: 1;
+        padding-bottom: 4px;
+    }
+
+    /* --- КАРТОЧКИ СТАТИСТИКИ --- */
     .main-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
-        padding: 8px 16px;
+        padding: 0 16px;
     }
 
     .widget-card {
@@ -155,8 +184,8 @@
         overflow: hidden;
     }
     .multi-progress div { height: 100%; }
-    .multi-progress .p1 { width: 40%; background: #32ADE6; }
-    .multi-progress .p2 { width: 20%; background: #FF9500; }
+    .multi-progress .p1 { width: 45%; background: #32ADE6; }
+    .multi-progress .p2 { width: 15%; background: #FF9500; }
     .multi-progress .p3 { width: 15%; background: #5856D6; }
     .multi-progress .p4 { width: 25%; background: #FFCC00; }
 
@@ -182,7 +211,7 @@
     .icon-pyat { background-color: #008C44; color: #fff; }
     .icon-66 { background-color: #0066CC; color: #fff; }
 
-    /* Быстрые действия */
+    /* --- БЫСТРЫЕ ДЕЙСТВИЯ --- */
     .quick-actions {
         display: flex;
         justify-content: space-between;
@@ -205,7 +234,7 @@
     }
     .action-icon-bg svg { width: 24px; height: 24px; fill: #4A85F6; }
 
-    /* Карта Black */
+    /* --- КАРТА BLACK --- */
     .black-card {
         background-color: #121212;
         border: 1px solid #2C2C2E;
@@ -470,18 +499,30 @@
             </div>
         </div>
 
+        <!-- Баннеры с картинками -->
         <div class="stories-scroll">
             <div class="story-card story-1">
-                <div class="story-icon">🔑</div>
+                <!-- Картинка ключа (Apple Emoji) -->
+                <div class="story-img" style="background-image: url('https://em-content.zobj.net/source/apple/391/old-key_1f5dd-fe0f.png');"></div>
                 <div class="story-title">Хватит<br>на всё<br>за 290 ₽</div>
             </div>
+            
             <div class="story-card story-2">
-                <div class="story-icon">👑</div>
+                <!-- Картинка короны (Apple Emoji) -->
+                <div class="story-img" style="background-image: url('https://em-content.zobj.net/source/apple/391/crown_1f451.png');"></div>
                 <div class="story-title">Узнать<br>кэшбэк дня</div>
             </div>
+            
             <div class="story-card story-3">
-                <div class="story-icon" style="font-weight: 900; font-size: 45px; color: #000; font-family: serif;">T</div>
+                <!-- Логотип Т-Банка на CSS -->
+                <div class="t-logo-css"><span>T</span></div>
                 <div class="story-title">Сделайте<br>Т-Банк<br>основным</div>
+            </div>
+
+            <div class="story-card story-4">
+                <!-- Картинка кроссовок (Apple Emoji) -->
+                <div class="story-img" style="background-image: url('https://em-content.zobj.net/source/apple/391/running-shoe_1f45f.png');"></div>
+                <div class="story-title">Спортивные<br>товары<br>в Шопинге</div>
             </div>
         </div>
 
@@ -616,9 +657,9 @@
             Платежи
         </button>
 
-        <!-- Накопления -->
+        <!-- Накопления (Иконка Доллара) -->
         <button class="nav-item" onclick="switchPage('page-savings', this)">
-            <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
             Накопления
         </button>
 
@@ -653,7 +694,6 @@
     let balance = 169291.92;
     let mode = "";
 
-    // Форматирование валюты
     function fmt(n) {
         return n.toLocaleString("ru-RU", {
             minimumFractionDigits: 2,
@@ -661,7 +701,6 @@
         }) + " ₽";
     }
 
-    // Переключение между страницами
     function switchPage(pageId, navElement) {
         document.querySelectorAll('.page').forEach(page => {
             page.classList.remove('active');
@@ -685,7 +724,6 @@
         }
     }
 
-    // Модальное окно
     function openAction(type) {
         mode = type;
         document.getElementById("modal-title").textContent = type;
@@ -715,7 +753,6 @@
         showToast("Баланс обновлён");
     }
 
-    // Переименование
     function editName() {
         let n = prompt("Введите новое название счёта:", "Пенсия");
         if (n && n.trim() !== "") {
@@ -724,7 +761,6 @@
         }
     }
 
-    // Уведомление
     function showToast(msg) {
         let t = document.getElementById("toast");
         t.textContent = msg;
